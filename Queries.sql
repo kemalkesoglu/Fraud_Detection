@@ -101,8 +101,8 @@ GROUP BY CH.id
 ORDER BY 1 DESC
 
 
---ID numarası 25 olan kişinin aylara ayrılmış olarak maksimum,minimum,ortalama,o aya ait harcama sayıları ve harcama yaptığı işletmenin türü nedir?
---2.00$'dan az olan harcamalar şüphelidir. Minimum harcamaları 2.00$'dan küçük olanlar incelenmeli
+--ID numarası 25 olan kişinin aylara ayrılmış olarak maksimum,minimum,ortalama,o aya ait harcama sayıları ve harcama yaptığı işletmenin türü nedir? (UNION ALL)
+--2.00$'dan az olan harcamalar şüphelidir. Minimum harcamaları 2.00$'dan küçük olanlar incelenmeli 
 SELECT MONTH('20180101') AS AY,
 MAX(AMOUNT) AS MAKSIMUM_HARCAMA,
 MIN(AMOUNT) AS MINIMUM_HARCAMA,
