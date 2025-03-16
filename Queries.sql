@@ -131,7 +131,7 @@ HAVING AMOUNT<2.00
 ORDER BY 1
 
 
---Yukarıdaki sorunun aynısı ama maksimum,minimum ve ortalama değerleri de istenmekte birleştirme olarak da UNION ALL kullanıldı.
+--Yukarıdaki sorunun UNION ALL ile birleştirilmiş hali.
 SELECT MONTH('20180101') AS AY,
 MAX(AMOUNT) AS MAKSIMUM_HARCAMA,
 MIN(AMOUNT) AS MINIMUM_HARCAMA,
