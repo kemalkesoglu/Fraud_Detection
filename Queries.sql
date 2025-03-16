@@ -101,8 +101,38 @@ GROUP BY CH.id
 ORDER BY 1 DESC
 
 
---ID numarası 25 olan kişinin aylara ayrılmış olarak maksimum,minimum,ortalama,o aya ait harcama sayıları ve harcama yaptığı işletmenin türü nedir? (UNION ALL)
---2.00$'dan az olan harcamalar şüphelidir. Minimum harcamaları 2.00$'dan küçük olanlar incelenmeli 
+--ID numarası 25 olan kişinin aylara ayrılmış olarak o aya ait harcama sayıları, tam harcama tarihleri ve harcama yaptığı işletmenin türü nedir? (CASE WHEN)
+--2.00$'dan az olan harcamalar şüphelidir. Minimum harcamaları 2.00$'dan küçük olanlar incelenmeli   
+SELECT
+T.amount,
+COUNT(*) AS HARCAMANIN_ADEDI,
+MC.name AS ISLETME_TURU,
+T.date AS TARIH,
+CASE WHEN DATE BETWEEN '2018-01-01 00:00:00' AND '2018-01-31 23:59:59' THEN 'OCAK'
+	   WHEN DATE BETWEEN '2018-02-01 00:00:00' AND '2018-02-28 23:59:59' THEN 'SUBAT'
+	   WHEN DATE BETWEEN '2018-03-01 00:00:00' AND '2018-03-31 23:59:59' THEN 'MART'
+	   WHEN DATE BETWEEN '2018-04-01 00:00:00' AND '2018-04-30 23:59:59' THEN 'NISAN'
+	   WHEN DATE BETWEEN '2018-04-01 00:00:00' AND '2018-05-31 23:59:59' THEN 'MAYIS'
+	   WHEN DATE BETWEEN '2018-04-01 00:00:00' AND '2018-06-30 23:59:59' THEN 'HAZIRAN'
+	   WHEN DATE BETWEEN '2018-04-01 00:00:00' AND '2018-07-31 23:59:59' THEN 'TEMMUZ'
+	   WHEN DATE BETWEEN '2018-04-01 00:00:00' AND '2018-08-31 23:59:59' THEN 'AGUSTOS'
+	   WHEN DATE BETWEEN '2018-04-01 00:00:00' AND '2018-09-30 23:59:59' THEN 'EYLUL'
+	   WHEN DATE BETWEEN '2018-04-01 00:00:00' AND '2018-10-31 23:59:59' THEN 'EKIM'
+	   WHEN DATE BETWEEN '2018-04-01 00:00:00' AND '2018-11-30 23:59:59' THEN 'KASIM'
+	   WHEN DATE BETWEEN '2018-04-01 00:00:00' AND '2018-12-31 23:59:59' THEN 'ARALIK'
+	 END AS AY
+FROM TRANSACTIONS T
+JOIN CREDIT_CARD CC ON T.card=CC.card
+JOIN CARD_HOLDER CH ON CC.id_card_holder=CH.id
+JOIN MERCHANT M ON T.id_merchant=M.id
+JOIN MERCHANT_CATEGORY MC ON M.id_merchant_category=MC.id
+WHERE CH.id=25 
+GROUP BY T.amount,MC.name,T.date
+HAVING AMOUNT<2.00 
+ORDER BY 1
+
+
+--Yukarıdaki sorunun aynısı ama maksimum,minimum ve ortalama değerleri de istenmekte birleştirme olarak da UNION ALL kullanıldı.
 SELECT MONTH('20180101') AS AY,
 MAX(AMOUNT) AS MAKSIMUM_HARCAMA,
 MIN(AMOUNT) AS MINIMUM_HARCAMA,
