@@ -101,13 +101,12 @@ GROUP BY CH.id
 ORDER BY 1 DESC
 
 
---ID numarası 25 olan kişinin aylara ayrılmış olarak o aya ait harcama sayıları, tam harcama tarihleri ve harcama yaptığı işletmenin türü nedir? (CASE WHEN)
+--ID numarası 25 olan kişinin aylara ayrılmış olarak o aya ait harcama sayıları ve harcama yaptığı işletmenin türü nedir? (CASE WHEN)
 --2.00$'dan az olan harcamalar şüphelidir. Minimum harcamaları 2.00$'dan küçük olanlar incelenmeli   
 SELECT
 T.amount,
 COUNT(*) AS HARCAMANIN_ADEDI,
 MC.name AS ISLETME_TURU,
-T.date AS TARIH,
 CASE WHEN DATE BETWEEN '2018-01-01 00:00:00' AND '2018-01-31 23:59:59' THEN 'OCAK'
 	   WHEN DATE BETWEEN '2018-02-01 00:00:00' AND '2018-02-28 23:59:59' THEN 'SUBAT'
 	   WHEN DATE BETWEEN '2018-03-01 00:00:00' AND '2018-03-31 23:59:59' THEN 'MART'
